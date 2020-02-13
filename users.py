@@ -3,20 +3,22 @@ class users:
     def __init__(self):
         self.users = dict()
         self.communities = dict()
-
+        self.care = dict()
     def addCommunity(self,groupInst):
         if(not isIn(self.communities,groupInst.name)):
             self.communities[groupInst.name] = groupInst
         else:
             raise Exception("Community name already in use")
 
-    def addUser(self,userInst):
+    def addUser(self,userInst,careInst):
         if(not isIn(self.users,userInst.username)):
             self.users[userInst.username] = userInst
+            self.care[userInst.username] = careInst
         else:
             raise Exception("Username already in use.")
     def delete(self,userInst):
         self.users.pop(userInst.username)
+        self.care.pop(userInst.username)
 
     def retrieveUser(self,name = "",login=False):
         if(isIn(self.users,name)):

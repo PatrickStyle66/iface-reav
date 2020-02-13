@@ -1,6 +1,7 @@
 import UserClass
 import users
 import group
+import caretaker
 from functions import *
 
 logo = """ ____ ____ ____ ____ ____ 
@@ -134,11 +135,16 @@ def edit(userInst,userList):
     while (text != ""):
         text = input()
         if (not ":" in text or text.count(":") > 1):
-            print("Linha invalida! Separe assim, idade:29")
+            if text == "":
+                print("Mudanças Salvas!")
+            else:
+                print("Linha invalida! Separe assim, idade:29")
             continue
         else:
             text = text.split(":")
             text = [part.rstrip().lstrip() for part in text]
+        userList.care[userInst.name].LastEdit()
+        print(userInst.mem.attrs)
         att = attempt(userInst.addAttr, text[0], text[1])
         if (att == "Not Confirmed"):
             choice = input("Esse atributo ja esta definido! Deseja sobreescrever?\n(s/n)")
@@ -203,11 +209,12 @@ def register(userList):
     name = input("Diz o nome pra teus amigos encontrarem, e os inimigos tambem ")
     new = UserClass.user()
     att = attempt(new.create, username, password, name)
+    care = caretaker.caretaker(att)
     if (att == "Invalid username"):
         print("Opa! Esse nome não vale, tenta outro.")
     elif (isinstance(att, UserClass.user)):
         print("Pronto! Agora é só fazer login e nos dar seus dados de graça")
-        userList.addUser(att)
+        userList.addUser(att,care)
     else:
         print("Opa! Algo deu errado.")
         raise (Exception("{} is of wrong type".format(att)))

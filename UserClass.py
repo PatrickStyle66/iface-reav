@@ -1,6 +1,11 @@
 from functions import *
 from messageBox import messageBox
 class user:
+
+    class memento:
+        def __init__(self):
+            self.attrs = dict()
+
     def __init__(self,active = False):
         self.attrs = dict()
         self.messageBox = messageBox()
@@ -8,6 +13,7 @@ class user:
         self.friends = dict()
         self.requests = dict()
         self.groups = dict()
+        self.mem = self.memento()
 
     def create(self,username,password,name):
         if(not reMatch(str(username),onlyLetters)):
@@ -43,6 +49,13 @@ class user:
         else:
             raise Exception("Invalid string")
         return True
+
+    def save(self):
+        self.mem.attrs = self.attrs.copy()
+        return self.mem.attrs
+
+    def restore(self,mem):
+        self.attrs = mem.copy()
 
     def showAttrs(self):
         return self.attrs
