@@ -69,7 +69,7 @@ class user:
                 print("Vocês são amigos agora!")
             else:
                 self.requests[userInst.username] = userInst
-                print("Pronto! Convite enviado.")
+                print("Pronto! Convite enviado!")
         else:
             raise Exception("Inactive User")
         return True

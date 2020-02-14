@@ -42,4 +42,4 @@ class users:
         if(isIn(self.users,username)):
             return attempt(self.users[username].login(password))
         else:
-            raise Exception("User does not exist")
+            raise Exception("User doesn't exist")

@@ -1,5 +1,5 @@
 class messageBox:
-    def __init__(self,messages = ()):
+    def __init__(self,messages = []):
         self.messages = messages
 
     def push(self,message):
