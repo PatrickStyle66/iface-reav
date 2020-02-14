@@ -144,7 +144,6 @@ def edit(userInst,userList):
             text = text.split(":")
             text = [part.rstrip().lstrip() for part in text]
         userList.care[userInst.name].LastEdit()
-        print(userInst.mem.attrs)
         att = attempt(userInst.addAttr, text[0], text[1])
         if (att == "Not Confirmed"):
             choice = input("Esse atributo ja esta definido! Deseja sobreescrever?\n(s/n)")
@@ -156,10 +155,20 @@ def edit(userInst,userList):
             elif (choice.lower() == "n"):
                 print("Ok! Nada mudou, feijoada.")
             else:
-                print("Sim ou nao, nao tem talvez. -- Eu, 2018")
+                print("Sim ou nao, nao tem talvez.")
         elif (att == "Invalid string"):
             print(
                 "Opa! Caracteres invalidos em algum lugar,\n use apenas letras e espaco para o atributo, e letras, numeros e caracteres especiais para o valor.")
+
+def undo(userInst,userList):
+    text = input("Tem certeza?\n(s/n)")
+    if text.lower() == "s":
+        userList.care[userInst.name].undo()
+        print("Mudanças Desfeitas!")
+    elif text.lower() == "n":
+        print("ok, voltando...")
+    else:
+        print("Sim ou nao, nao tem talvez.")
 
 
 
@@ -176,17 +185,18 @@ def userGui(userInst,userList):
     6. Recuperar suas informações
     7. Deletar conta(Cuidado!)
     8. Editar perfil
-    9. Sair
+    9. Desfazer Edição
+    10.Sair
     """
     choice = '-1'
-    while(choice!="9"):
+    while(choice!="10"):
         try:
             print(firstScreen)
-            option = [sendMesssage, addFriend, enterComunity, createComunity, admComunity, info, delete, edit]
+            option = [sendMesssage, addFriend, enterComunity, createComunity, admComunity, info, delete, edit,undo]
             choice = input()
             choice = option[int(choice) - 1](userInst, userList)
         except:
-            choice = "9"
+            choice = "10"
 
 
 
